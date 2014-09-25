@@ -1,12 +1,14 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<title>Code Retreat - Joe Wright</title>
+	<title>Clojure Bridge - Joe Wright</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=1274, user-scalable=no">
 	<link rel="stylesheet" href="style.css">	
 	<link href='http://fonts.googleapis.com/css?family=Rambla' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="highlighter/default.css">
+
 	<style>
 	    body {font-family: 'Rambla', sans-serif; text-align: center;}
 
@@ -17,10 +19,12 @@
       h3 { font-size: 1em; padding-top: 4em; } 
       h4 { font-size: 1em; margin: 0 0 1em 0;} 
 
-      ol, ul, li { text-align: left; }
-      .mono p { text-align: left; font-family: 'Inconsolata'; font-size: 0.7em; }
+      ol, ul, li { text-align: left; font-size: 0.8em; }
+      .mono p { text-align: center; font-family: 'Inconsolata'; font-size: 1em; line-height: 2em; }
+      .mono br { padding-bottom: 1em;}
       .heading_with_text p { font-size: 1.3em; }
       .session { margin-top: 1.5em; }
+      pre { text-align: left; font-size: 0.6em; }
 
       table { 
         margin: 0 auto; margin-top: 2em;
@@ -34,227 +38,136 @@
 
 </head>
 <body class="list">
-	<header class="caption"><h1>Code Retreat</h1><p>Joe Wright / Calba</p></header>
+	<header class="caption"><h1>Code Retreat</h1><p>Joe Wright</p></header>
 	
-  <div class="slide" id="talkstart"><div class="heading"><section><header><h1>Code Retreat</h1><p style="text-align: left">Joe Wright - Calba<span style="float: right">@joe_jag</span></p></header></section></div></div>
+  <div class="slide" id="a-0"><div class="heading"><section><header><h1>Functions</h1><p style="text-align: left">Joe Wright<span style="float: right">@joe_ jag</span></p></header></section></div></div>
 
-  <div class="slide" id="z-1-schedule"><div><section><header>
-      <h4>Schedule</h4>
-      <div class="mono"> 
-      <p>  09.00 - 09.30am: Arrival, Introduction
-      <br/>
-      <br/>09.30 - 10.15am: Session #1
-      <br/>10.30 - 11.15am: Session #2
-      <br/>11.30 - 12.15am: Session #3
-      <br/>
-      <br/>12.15 - 01.30pm: Lunch, socializing
-      <br/>
-      <br/>01.30 - 02.15pm: Session #4
-      <br/>02.30 - 03.15pm: Session #5
-      <br/>
-      <br/>03.15 - 03:45pm: Closing circle
-      <br/>
-      <br/>03.45 - 04.30pm: Session #6
+  <div class="slide" id="a-1"><div><section><header>
+      <h2>Schedule</h4>
+      <div class="mono">
+      <p>What are functions?
+      <br/>Naming functions
+      <br/>Important functions
+      <br/>(map) and (reduce)
       </p>
       </div>
    </header></section></div></div>
 
-  <div class="slide" id="z-2-today"><div class="heading_with_text"><section><header>
-      <h2>Today</h2>
-      <p>The point of a <strong>code retreat</strong> is <strong>not</strong> to make progress on the problem.</p>
-      <p>The point is to <strong>experiment</strong> without pressure and write <strong>good code</strong>!</p>
-   </header></section></div></div>
-  <div class="slide" id="z-2aaa-simpledesign"><div class="heading_with_text"><section><header>
-      <h2>Rules of simple design</h2>
-      <ol>
-        <li>Runs all the tests</li>
-        <li>Contains no duplications</li>
-        <li>Expresses the intent of the programmers</li>
-        <li>Has no superfluous parts</li>
-      </ol>
-   </header></section></div></div>
-  <div class="slide" id="z-2aa-format"><div class="heading_with_text"><section><header>
-      <h2>Format of each session</h2>
-      <ol>
-        <li>45 minutes coding</li>
-        <li>10 minutes retrospective</li>
-        <li>5 minutes break</li>
-      </ol>
+  <div class="slide" id="a-2"><div class="heading_with_text"><section><header>
+      <h2>What are functions?</h2>
+      <p>A function is an independent, discrete piece of code that takes in some values (called arguments) and returns other values</p>
    </header></section></div></div>
 
-  <div class="slide" id="z-2aa-deleteme"><div class="heading"><section><header>
-      <p style="padding-top: 5em;">Delete the code after each session</p>
+  <div class="slide" id="a-3"><div class="heading_with_text"><section><header>
+      <h4>Anatomy of a function</h4>
+      <pre><code class="clojure">
+(defn total-bill
+  "Given subtotal of bill, return total after tax."
+  [subtotal]
+  (* 1.08 subtotal))
+        </code></pre>
    </header></section></div></div>
 
-  <div class="slide" id="z-2a-session1"><div class="heading"><section><header>
-      <h2 class="session">Session #1</h2> <p>Get to know the problem</p>
+  <div class="slide" id="a-4"><div class="heading_with_text"><section><header>
+      <h4>Calling your function</h4>
+      <pre><code class="clojure">
+(defn total-bill
+  "Given subtotal of bill, return total after tax."
+  [subtotal]
+  (* 1.08 subtotal))
+        </code></pre>
+      <pre><code class="clojure">
+(total-bill 8.5)  ;=> 9.18
+(total-bill 50)   ;=> 54.0
+(total-bill 50/6) ;=> 9.0
+        </code></pre>
    </header></section></div></div>
 
-   <div class="slide cover" id="z-3-conways"><div class="heading"><section><header><h2 style="color: white; padding-top: 1.5em">Conway's Game of Life</h2><img src="conway.gif" style="background-color: white" alt=""></header></section></div></div>
-
-  <div class="slide" id="z-4-rules-1a"><div><section><header>
-      <h4>Rules</h4>
-      <div> 
-        1. Any live cell with fewer than two live neighbours dies, as if caused by under-population.
-        <table border=1 class="conway">
-          <tr> <td></td> <td></td> <td></td> </tr>
-          <tr> <td></td> <td class="live"></td> <td></td> </tr>
-          <tr> <td></td> <td></td> <td></td> </tr>
-        </table>
-      </div>
-   </header></section></div></div>
-  <div class="slide" id="z-4-rules-1b"><div><section><header>
-      <h4>Rules</h4>
-      <div> 
-        1. Any live cell with fewer than two live neighbours dies, as if caused by under-population.
-        <table border=1 class="conway">
-          <tr> <td></td> <td></td> <td></td> </tr>
-          <tr> <td></td> <td></td> <td></td> </tr>
-          <tr> <td></td> <td></td> <td></td> </tr>
-        </table>
-      </div>
-   </header></section></div></div>
-
-  <div class="slide" id="z-4-rules-2a"><div><section><header>
-      <h4>Rules</h4>
-      <div> 
-        2. Any live cell with two or three live neighbours lives on to the next generation.
-        <table border=1 class="conway">
-          <tr> <td class="live"></td> <td></td> <td></td> </tr>
-          <tr> <td></td> <td class="live"></td> <td></td> </tr>
-          <tr> <td class="live"></td> <td></td> <td></td> </tr>
-        </table>
-      </div>
-   </header></section></div></div>
-  <div class="slide" id="z-4-rules-2b"><div><section><header>
-      <h4>Rules</h4>
-      <div> 
-        2. Any live cell with two or three live neighbours lives on to the next generation.
-        <table border=1 class="conway">
-          <tr> <td></td> <td></td> <td></td> </tr>
-          <tr> <td></td> <td class="live"></td> <td></td> </tr>
-          <tr> <td></td> <td></td> <td></td> </tr>
-        </table>
-      </div>
-   </header></section></div></div>
-
-  <div class="slide" id="z-4-rules-3a"><div><section><header>
-      <h4>Rules</h4>
-      <div> 
-        3. Any live cell with more than three live neighbours dies, as if by overcrowding.
-        <table border=1 class="conway">
-          <tr> <td></td> <td class="live"></td> <td></td> </tr>
-          <tr> <td class="live"></td> <td class="live"></td> <td class="live"></td> </tr>
-          <tr> <td></td> <td class="live"></td> <td></td> </tr>
-        </table>
-      </div>
-   </header></section></div></div>
-  <div class="slide" id="z-4-rules-3b"><div><section><header>
-      <h4>Rules</h4>
-      <div> 
-        3. Any live cell with more than three live neighbours dies, as if by overcrowding.
-        <table border=1 class="conway">
-          <tr> <td></td> <td class="live"></td> <td></td> </tr>
-          <tr> <td class="live"></td> <td></td> <td class="live"></td> </tr>
-          <tr> <td></td> <td class="live"></td> <td></td> </tr>
-        </table>
-      </div>
-   </header></section></div></div>
-
-  <div class="slide" id="z-4-rules-4a"><div><section><header>
-      <h4>Rules</h4>
-      <div> 
-        4. Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction. 
-        <table border=1 class="conway">
-          <tr> <td class="live"></td> <td></td> <td></td> </tr>
-          <tr> <td></td> <td></td> <td></td> </tr>
-          <tr> <td class="live"></td> <td></td> <td class="live"></td> </tr>
-        </table>
-      </div>
-   </header></section></div></div>
-  <div class="slide" id="z-4-rules-4b"><div><section><header>
-      <h4>Rules</h4>
-      <div> 
-        4. Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction. 
-        <table border=1 class="conway">
-          <tr> <td></td> <td></td> <td></td> </tr>
-          <tr> <td></td> <td class="live"></td> <td></td> </tr>
-          <tr> <td></td> <td></td> <td></td> </tr>
-        </table>
-      </div>
+  <div class="slide" id="a-5"><div class="heading_with_text"><section><header>
+      <h4>Extra arguments</h4>
+      <pre><code class="clojure">
+(defn total-with-tip
+  "Given subtotal, return total after tax and tip."
+  [subtotal tip-pct]
+  (* 1.08 subtotal (+ 1 tip-pct)))
+        </code></pre>
+      <pre><code class="clojure">
+(total-with-tip 12.50 0.18) ;=> 15.93
+(total-with-tip 50 0.18)    ;=> 63.72
+        </code></pre>
    </header></section></div></div>
 
 
-  <div class="slide" id="z-5a-rulesrecap"><div class="heading_with_text"><section><header>
-      <h2>Conway's Game of Life</h2>
-      <ol>
-        <li>Any <strong>live</strong> cell with <strong>fewer than two</strong> live neighbours dies, as if caused by under-population.</li>
-        <li>Any <strong>live</strong> cell with <strong>two or three</strong> live neighbours lives on to the next generation.</li>
-        <li>Any <strong>live</strong> cell with <strong>more than three</strong> live neighbours dies, as if by overcrowding</li>
-        <li>Any <strong>dead</strong> cell with <strong>exactly three</strong> live neighbours becomes a live cell, as if by reproduction</li>
-      </ol>
+  <div class="slide" id="a-6"><div class="heading"><section><header>
+      <h2 class="session">Exercise!</h2> <p>Find per-person share of bill among a group</p>
    </header></section></div></div>
 
-  <div class="slide" id="z-6a-session2"><div class="heading"><section><header>
-      <h2 class="session">Session #2</h2> <p>Ping-Pong TDD</p>
-   </header></section></div></div>
-   <div class="slide cover" id="z-6b-tdd"><div class="heading"><section><header><img src="red-green-refactor.png" style="background-color: white" alt=""></header></section></div></div>
-  <div class="slide" id="z-6c-pingpong"><div class="heading_with_text"><section><header>
-      <h2>Ping-Pong Programming</h2>
-      <ol>
-        <li>Alice writes a new test and sees that it fails</li>
-        <li>Bob implements the code needed to pass the test</li>
-        <li>Bob writes the next test and sees that it fails</li>
-        <li>Alice implements the code needed to pass the test</li>
-      </ol>
+  <div class="slide" id="b-1"><div class="heading_with_text"><section><header>
+      <h2>What are functions?</h2>
+      <p>Function names are symbols. They start with a letter and can contain other letters, numbers and some punctuation</p>
    </header></section></div></div>
 
-  <div class="slide" id="z-7a-session3"><div class="heading"><section><header> <h2 class="session">Session #3</h2> <p>Extreme Normal Form</p>
-   </header></section></div></div>
-  <div class="slide" id="z-7b-explanation"><div class="heading_with_text"><section><header>
-      <h2>Extreme Normal Form</h2>
-      <ol>
-        <li>The code should work</li>
-        <li>No bad names</li>
-        <li>No duplication of code, concepts, ideas</li>
-        <li>No redundant code - as simple as possible</li>
-      </ol>
+  <div class="slide" id="b-2"><div class="heading_with_text"><section><header>
+      <h4>Predicates</h4>
+      <p>Functions that return true or false --called predicates-- usually end in ?</p>
+      <pre><code class="clojure">
+(zero? 0) ;=> true
+(vector? []) ;=> true
+(empty? [1 2 3]) ;=> false
+        </code></pre>
    </header></section></div></div>
 
-  <div class="slide" id="z-8a-session4"><div class="heading"><section><header>
-      <h2 class="session">Session #4</h2> <p>Mute Evil Programmer</p>
-   </header></section></div></div>
-  <div class="slide" id="z-8b-explanation"><div class="heading_with_text"><section><header>
-      <h2>Mute Evil Programmer</h2>
-      <ul>
-        <li><strong>Ping-pong</strong> - one person writes the tests, the other person writes the implementation code</li>
-        <li><strong>Mute</strong> - nobody can talk</li>
-        <li><strong>Find the loophole</strong> - the implementation person purposely writes the wrong algorithm that still makes the tests turn green.</li>
-      </ul>
-   </header></section></div></div>
-
-  <div class="slide" id="z-9a-session5"><div class="heading"><section><header>
-      <h2 class="session">Session #5</h2> <p>Tell don’t Ask</p>
-   </header></section></div></div>
-  <div class="slide" id="z-9b-explanation"><div class="heading_with_text"><section><header>
-      <p style="padding-top: 5em;">No function should have a return value</p>
+  <div class="slide" id="b-3"><div class="heading_with_text"><section><header>
+      <h2>Important functions</h2>
+      <p>Functions that work with collections</p>
+      <pre><code class="clojure">
+        (count [1 2 3])   ;=> 3
+        (first [1 2 3])   ;=> 1
+        (rest  [1 2 3])   ;=> [2 3]
+        (conj  [1 2 3] 4) ;=> [1 2 3 4]
+        </code></pre>
    </header></section></div></div>
 
-  <div class="slide" id="z-10a-session6"><div class="heading"><section><header>
-      <h2 class="session">Session #6</h2> <p>Freestyle</p>
+  <div class="slide" id="c-1"><div class="heading_with_text"><section><header>
+      <h2>(map) and (reduce)</h2>
+      <p>Functions that take other functions</p>
    </header></section></div></div>
-  <div class="slide" id="z-10b-explanation"><div class="heading_with_text"><section><header>
-      <h2>Freestyle</h2>
-      <ul>
-        <li>Use a different language</li>
-        <li>No conditionals (no if / else)</li>
-        <li>Use only one level of indentation per method</li>
-        <li>Don’t use any getters/setters/properties</li>
-        <li>Use only one dot per line</li>
-        <li>Maximum 5 lines per method</li>
-      </ul>
+  <div class="slide" id="c-2"><div class="heading_with_text"><section><header>
+      <h2>(map)</h2>
+      <p>(map) is a function that takes another function, along with a collection. It calls the function provided to it on each member of the collection, then returns a new collection with the results of those function calls</p>
    </header></section></div></div>
+
+  <div class="slide" id="c-3"><div class="heading_with_text"><section><header>
+      <h2>(map) example</h2>
+      <pre><code class="clojure">
+(def dine-in-orders [12.50 20 21])
+(def take-out-orders [6.00 6.00 7.95])
+
+(map total-bill dine-in-orders)  ;=> [13.5 21.6 22.6]
+(map total-bill take-out-orders) ;=> [6.48 6.48 8.58]
+        </code></pre>
+   </header></section></div></div>
+  <div class="slide" id="c-4"><div class="heading_with_text"><section><header>
+      <h2>(reduce)</h2>
+      <p>(reduce) reduce takes the first two members of the provided collection and calls the provided function with those members. 
+      It calls the provided function again, with the result of the previous function call, along with the next member of the collection</p>
+   </header></section></div></div>
+  <div class="slide" id="c-5"><div class="heading_with_text"><section><header>
+      <h2>(reduce) example</h2>
+      <pre><code class="clojure">
+(def take-out-totals [6.48 6.48 8.586 6.75])
+
+(reduce + take-out-totals) ;=> 28.296
+        </code></pre>
+   </header></section></div></div>
+
+  <div class="slide" id="c-6"><div class="heading"><section><header>
+      <h2 class="session">Exercise!</h2> <p>Find the average from a collection of bill totals</p>
+   </header></section></div></div>
+
 
 	<script src="script.js"></script>	
+  <script src="highlighter/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
 </body>
 </html>
