@@ -46,7 +46,6 @@
       <h2>Schedule</h4>
       <div class="mono">
       <p>What are functions?
-      <br/>Naming functions
       <br/>Important functions
       <br/>(map) and (reduce)
       </p>
@@ -55,7 +54,7 @@
 
   <div class="slide" id="a-2"><div class="heading_with_text"><section><header>
       <h2>What are functions?</h2>
-      <p>A function is an independent, discrete piece of code that takes in some values (called arguments) and returns other values</p>
+      <p>A function is a templated set of instructions, taking options on how it works, used to save effort and aid readability through reuse</p>
    </header></section></div></div>
 
   <div class="slide" id="a-3"><div class="heading_with_text"><section><header>
@@ -97,19 +96,29 @@
         </code></pre>
    </header></section></div></div>
 
+   <div class="slide cover" id="a-5z"><div class="heading"><section><header><h2 style="color: white; padding-top: 1.5em">Exercise!</h2><img src="exercise1.gif" style="background-color: white" alt=""></header></section></div></div>
 
   <div class="slide" id="a-6"><div class="heading"><section><header>
-      <h2 class="session">Exercise!</h2> <p>Find per-person share of bill among a group</p>
+       <p>Find per-person share of bill among a group</p>
+      <pre><code class="clojure">
+(share-of-the-bill 100 4) ;=> 25
+        </code></pre>
    </header></section></div></div>
 
   <div class="slide" id="b-1"><div class="heading_with_text"><section><header>
       <h2>Naming functions</h2>
       <p>Function names are symbols. They start with a letter and can contain other letters, numbers and some punctuation</p>
+      <pre><code class="clojure">
+      zero?
+      swap!
+      births-since-1960
+        </code></pre>
+
    </header></section></div></div>
 
   <div class="slide" id="b-2"><div class="heading_with_text"><section><header>
-      <h4>Predicates</h4>
-      <p>Functions that return true or false --called predicates-- usually end in ?</p>
+      <h2>Predicates</h2>
+      <p>Functions that return true or false, called predicates, end with a question mark</p>
       <pre><code class="clojure">
 (zero? 0) ;=> true
 (vector? []) ;=> true
@@ -155,15 +164,23 @@
   <div class="slide" id="c-5"><div class="heading_with_text"><section><header>
       <h2>(reduce) example</h2>
       <pre><code class="clojure">
-(def take-out-totals [6.48 6.48 8.586 6.75])
+(def take-out-totals [1 2 3 4 5])
 
-(reduce + take-out-totals) ;=> 28.296
+(reduce + take-out-totals) ;=> 15
         </code></pre>
    </header></section></div></div>
 
+  <div class="slide cover" id="c-5z"><div class="heading"><section><header><h2 style="color: white; padding-top: 3em">Exercise!</h2><img src="exercise2.gif" style="background-color: white" alt=""></header></section></div></div>
+
   <div class="slide" id="c-6"><div class="heading"><section><header>
-      <h2 class="session">Exercise!</h2> <p>Find the average from a collection of bill totals</p>
+      <p>Find the average from a collection of bill totals</p>
+      <pre><code class="clojure">
+(average-bill-total [10 20 30 40 50]) ;=> 30
+(average-bill-total [1 2 4 4 5]) ;=> 3.6
+        </code></pre>
    </header></section></div></div>
+
+   <div class="slide cover" id="z"><div class="heading"><section><header><img src="beback.gif" style="background-color: white" alt=""></header></section></div></div>
 
 
 	<script src="script.js"></script>	
